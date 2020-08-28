@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_212035) do
+ActiveRecord::Schema.define(version: 2020_08_28_223718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hikes", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "location"
+    t.string "difficulty"
+    t.string "duration"
+    t.string "length"
+    t.string "photo"
+    t.string "directionURL"
+    t.string "routeURL"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hikes_lists", id: false, force: :cascade do |t|
+    t.bigint "hike_id", null: false
+    t.bigint "list_id", null: false
+    t.index ["hike_id", "list_id"], name: "index_hikes_lists_on_hike_id_and_list_id"
+  end
 
   create_table "lists", force: :cascade do |t|
     t.string "name"
