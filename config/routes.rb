@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hikes_lists
   resources :hikes
   resources :lists
   resources :users

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_223718) do
+ActiveRecord::Schema.define(version: 2020_08_28_231409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hike_lists", force: :cascade do |t|
+    t.bigint "hike_id", null: false
+    t.bigint "list_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hike_id"], name: "index_hike_lists_on_hike_id"
+    t.index ["list_id"], name: "index_hike_lists_on_list_id"
+  end
 
   create_table "hikes", force: :cascade do |t|
     t.string "title"
@@ -27,12 +36,6 @@ ActiveRecord::Schema.define(version: 2020_08_28_223718) do
     t.string "routeURL"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "hikes_lists", id: false, force: :cascade do |t|
-    t.bigint "hike_id", null: false
-    t.bigint "list_id", null: false
-    t.index ["hike_id", "list_id"], name: "index_hikes_lists_on_hike_id_and_list_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -53,5 +56,7 @@ ActiveRecord::Schema.define(version: 2020_08_28_223718) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "hike_lists", "hikes"
+  add_foreign_key "hike_lists", "lists"
   add_foreign_key "lists", "users"
 end

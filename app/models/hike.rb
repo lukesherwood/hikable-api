@@ -1,4 +1,4 @@
 class Hike < ApplicationRecord
-    has_many :lists, through: :hikes_lists
-    has_many :users, through: :lists
+    has_many :hike_lists
+    has_many :lists, through: :hike_lists
 end
