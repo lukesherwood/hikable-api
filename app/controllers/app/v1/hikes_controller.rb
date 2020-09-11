@@ -1,4 +1,4 @@
-class App::V1::HikesController < ApplicationController
+class Api::V1::HikesController < ApplicationController
     def index
         @hikes = Hike.all
         render json: @hikes
