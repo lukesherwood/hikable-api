@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :hikes
       resources :lists
-      resources :users
+      # resources :users
     end
   end
 end

@@ -38,11 +38,6 @@ ActiveRecord::Schema.define(version: 2020_09_14_192647) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "jwt_blacklist", force: :cascade do |t|
-    t.string "jti", null: false
-    t.index ["jti"], name: "index_jwt_blacklist_on_jti"
-  end
-
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id", null: false
@@ -53,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_192647) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "username"
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

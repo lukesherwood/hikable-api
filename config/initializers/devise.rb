@@ -19,6 +19,7 @@ Devise.setup do |config|
     }
     jwt.dispatch_requests = [
       ['POST', %r{^/api/v1/users/sign_in$}],
+      ['POST', %r{^/api/v1/users/$}],
       ['GET', %r{^/$}]
     ]
     jwt.revocation_requests = [
