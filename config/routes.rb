@@ -8,10 +8,14 @@ Rails.application.routes.draw do
                registrations: 'api/v1/registrations'
              },
              path_prefix: '/api/v1'
+   
   namespace :api do 
     namespace :v1 do
       resources :hikes
       resources :lists
+      devise_scope :user do
+        get '/users/auto_login', to: 'sessions#auto_login'  
+      end
       # resources :users
     end
   end
