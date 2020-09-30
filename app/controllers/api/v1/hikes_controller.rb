@@ -1,5 +1,5 @@
 class Api::V1::HikesController < ApplicationController
-    before_action :authenticate_user!
+    
     
     def index
         @hikes = Hike.all
