@@ -19,6 +19,10 @@ class Api::V1::ListsController < ApplicationController
 
     def update
         @list = List.find(list_params[:id])
+        if hike_params[:hike_id]
+            @hike = Hike.find(hike_params[:hike_id])
+            @list.hikes << @hike
+        end
         if @list.update(list_params)
             render json: @list, status: 200
         end
@@ -27,9 +31,9 @@ class Api::V1::ListsController < ApplicationController
     def create
         @list = List.new(list_params)
         if @list.save
-            render json: @list, status: 200
-        else
-            render json: {message: 'list not created'}
+            render json: @list, status: :created
+          else
+            render json: @list.errors, status: :unprocessable_entity
         end
     end
 
@@ -46,5 +50,9 @@ class Api::V1::ListsController < ApplicationController
 
     def list_params
         params.require(:list).permit(:name, :user_id, :id, :description)
+    end
+
+    def hike_params
+        params.require(:hike).permit(:hike_id)
     end
 end
