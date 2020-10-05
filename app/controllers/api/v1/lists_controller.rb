@@ -1,8 +1,13 @@
 class Api::V1::ListsController < ApplicationController
     before_action :authenticate_user!
     def index
-        @lists = List.all
-        render json: @lists
+			#finding the user to find all their lists
+			token = request.headers['Authorization'].split(" ").last
+			payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
+      jti = payload.first['jti']
+      @user = User.find_by(jti: jti )
+			@lists = List.where(user_id: @user.id)
+			render json: @lists
     end
 
     def show
