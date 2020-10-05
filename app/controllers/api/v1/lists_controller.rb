@@ -20,7 +20,10 @@ class Api::V1::ListsController < ApplicationController
     def update
         @list = List.find(list_params[:id])
         if hike_params[:hike_id]
-            @hike = Hike.find(hike_params[:hike_id])
+            @hike = Hike.find(hike_params[:hike_id]) # if a hike is sent with the params
+            if @list.hikes.find_by(id: @hike.id) #if the hike already exists in that list
+                return render json:{message: 'Hike is already on that list'}, status: :unprocessable_entity
+            end
             @list.hikes << @hike
         end
         if @list.update(list_params)

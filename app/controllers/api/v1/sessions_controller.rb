@@ -4,13 +4,14 @@ class Api::V1::SessionsController < Devise::SessionsController
 
     def auto_login
       token = request.headers['Authorization'].split(" ").last
-      # return head :unauthorized unless token
-      payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
+      return head :unauthorized unless token
+      begin
+        payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
+      rescue JWT::ExpiredSignature => exception
+        return render json: {message: 'token expired, please login again'}
+      end
       jti = payload.first['jti']
       @user = User.find_by(jti: jti )
-      # return head :unauthorized unless user
-      # TODO set the `user` as current_user
-      # How to patch devise's `current_user` helper is another story
       if @user
         render json: @user
       else
