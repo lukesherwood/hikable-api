@@ -2,6 +2,7 @@ class Api::V1::ListsController < ApplicationController
     before_action :authenticate_user!
     def index
 			#finding the user to find all their lists
+			# move to application helper as used also in sessions
 			token = request.headers['Authorization'].split(" ").last
 			payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
       jti = payload.first['jti']
@@ -26,8 +27,8 @@ class Api::V1::ListsController < ApplicationController
         @list = List.find(list_params[:id])
         if hike_params[:hike_id]
             @hike = Hike.find(hike_params[:hike_id]) # if a hike is sent with the params
-            if @list.hikes.find_by(id: @hike.id) #if the hike already exists in that list
-                return render json:{message: 'Hike is already on that list'}, status: :unprocessable_entity
+            if @list.hikes.find_by(id: @hike.id) #if the hike already exists in that list then delete
+                @list.hikes.delete(@hike)
             end
             @list.hikes << @hike
         end
