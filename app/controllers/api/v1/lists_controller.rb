@@ -50,7 +50,7 @@ class Api::V1::ListsController < ApplicationController
     def destroy
         @list = List.find(list_params[:id])
         if @list.destroy
-            render body: {}, status: :no_content
+            render json: {}, status: :accepted
         else
             render json: {message: 'Error deleting list'}
         end
