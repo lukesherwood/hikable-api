@@ -1,14 +1,14 @@
 class Api::V1::ListsController < ApplicationController
     before_action :authenticate_user!
     def index
-			#finding the user to find all their lists
-			# move to application helper as used also in sessions
-			token = request.headers['Authorization'].split(" ").last
-			payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
-      jti = payload.first['jti']
-      @user = User.find_by(jti: jti )
-			@lists = List.where(user_id: @user.id)
-			render json: @lists
+        #finding the user to find all their lists
+        # move to application helper as used also in sessions
+        token = request.headers['Authorization'].split(" ").last
+        payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
+        jti = payload.first['jti']
+        @user = User.find_by(jti: jti )
+        @lists = List.where(user_id: @user.id)
+        render json: @lists
     end
 
     def show
@@ -26,7 +26,7 @@ class Api::V1::ListsController < ApplicationController
     def update
         @list = List.find(list_params[:id])
         if hike_params[:hike_id]
-            @hike = Hike.find(hike_params[:hike_id]) # if a hike is sent with the params
+            @hike = Hike.find(hike_params[:hike_id])
             if @list.hikes.find_by(id: @hike.id) #if the hike already exists in that list then delete this will delete if a duplicate is added, how to protect from that?
                 @list.hikes.delete(@hike)
                 return render json: @list, status: 200
