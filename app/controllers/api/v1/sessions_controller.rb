@@ -22,7 +22,4 @@ class Api::V1::SessionsController < Devise::SessionsController
     def respond_with(resource, _opts = {})
         render json: resource
     end
-    def respond_to_on_destroy
-        
-    end
   end

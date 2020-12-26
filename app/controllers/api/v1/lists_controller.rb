@@ -1,7 +1,6 @@
 class Api::V1::ListsController < ApplicationController
     before_action :authenticate_user!
     def index
-        #finding the user to find all their lists
         # move to application helper as used also in sessions
         token = request.headers['Authorization'].split(" ").last
         payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
@@ -19,9 +18,6 @@ class Api::V1::ListsController < ApplicationController
             render json: {message: 'list not found'}
         end
     end
-
-    # def edit
-    # end
 
     def update
         @list = List.find(list_params[:id])
