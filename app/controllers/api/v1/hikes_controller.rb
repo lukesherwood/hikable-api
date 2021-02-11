@@ -1,6 +1,7 @@
 class Api::V1::HikesController < ApplicationController
     
     def index
+        binding.pry
         @hikes = Hike.all
         render json: @hikes
     end
@@ -9,7 +10,7 @@ class Api::V1::HikesController < ApplicationController
         @hike = Hike.find(params[:id])
         if @hike
             render json: @hike
-        else
+        else   
             render json: {message: 'Hike not found'}
         end
     end
