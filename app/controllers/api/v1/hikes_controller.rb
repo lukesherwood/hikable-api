@@ -1,7 +1,6 @@
 class Api::V1::HikesController < ApplicationController
     
     def index
-        binding.pry
         @hikes = Hike.all
         render json: @hikes
     end

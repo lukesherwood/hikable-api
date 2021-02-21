@@ -3,10 +3,9 @@ class Api::V1::SessionsController < Devise::SessionsController
 
     def auto_login
         token = request.headers['Authorization'].split(" ").last
-        return head :unauthorized unless token
         begin
             payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
-        rescue JWT::ExpiredSignature => exception
+        rescue JWT::VerificationError
             return render json: {message: 'token expired, please login again'}
         end
         jti = payload.first['jti']
