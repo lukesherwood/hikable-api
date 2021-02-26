@@ -14,6 +14,13 @@ class Api::V1::HikesController < ApplicationController
         end
     end
 
+    def search_hikes
+        @keyword = params[:hike][:keyword]
+        @hikes = Hike.where('title LIKE ?', '%' + @keyword + '%')
+        render json: @hikes, status: 200
+        # need to figure out how to search database by keyword then render array of matching hikes
+    end
+
     # def edit
     # end
 
@@ -45,6 +52,6 @@ class Api::V1::HikesController < ApplicationController
     private
 
     def hike_params
-        params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo, :directionURL, :routeURL)
+        params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo, :directionURL, :routeURL, :keyword)
     end
 end

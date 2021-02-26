@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_192647) do
+ActiveRecord::Schema.define(version: 2021_02_26_145111) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
   enable_extension "plpgsql"
 
   create_table "hike_lists", force: :cascade do |t|
@@ -25,7 +26,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_192647) do
   end
 
   create_table "hikes", force: :cascade do |t|
-    t.string "title"
+    t.citext "title"
     t.string "description"
     t.string "location"
     t.string "difficulty"
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_192647) do
     t.string "routeURL"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_hikes_on_title", unique: true
   end
 
   create_table "lists", force: :cascade do |t|
