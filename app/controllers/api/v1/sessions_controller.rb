@@ -5,7 +5,8 @@ class Api::V1::SessionsController < Devise::SessionsController
         token = request.headers['Authorization'].split(" ").last
         begin
             payload = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
-        rescue JWT::VerificationError
+            # JWT::ExpiredSignature (Signature has expired): still causes break
+        rescue JWT::VerificationError || JWT::ExpiredSignature
             return render json: {message: 'token expired, please login again'}
         end
         jti = payload.first['jti']

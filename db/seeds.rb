@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 hike1 = Hike.create(title:"Lake Waikaremoana", description: "Be welcomed into the homeland of the Tūhoe people. Trace the shoreline of Lake Waikaremoana, the ‘sea of rippling waters’, through giant podocarp rainforest, remote beaches and rugged mountains with stunning views.", location: "Lake Waikaremoana", difficulty: "Intermediate", duration: "3-4 days", length: "46km", photo:"https://www.doc.govt.nz/thumbs/gallery/globalassets/images/places/east-coast/lake-waikaremoana-area/lake-waikaremoana-people-1200.jpg")
 hike2 = Hike.create(title:"Tongariro Northern Circuit", description: "Explore the volcanic heart of Tongariro National Park, a landscape of stark glacial contrasts and alpine views. ", location: "Tongariro National Park", difficulty: "Intermediate", duration: "3-4 days", length: "43.1km", photo:"https://www.doc.govt.nz/thumbs/gallery/globalassets/images/places/central-north-island/tongariro-national-park/tongariro-northern-circuit/tongariro-northern-circuit-1200.jpg")
 hike3 = Hike.create(title:"Whanganui Journey", description: "Explore the scenic beauty paddling up the Whanganui River, a landscape of remote hills and bush clad valleys.", location: "Whanganui National Park", difficulty: "Easy", duration: "3 or 5 days", length: "87km", photo:"https://www.doc.govt.nz/thumbs/gallery/globalassets/images/places/manawatu-whanganui/bridge-to-nowhere/whanganui-journey-kayakers-1200.jpg")
@@ -18,3 +11,31 @@ hike10 = Hike.create(title:"Rakiura Track", description: "Escape on an island ad
 user1 = User.create(username: "Admin", email: "admin@example.com", password:"password")
 list1 = user1.lists.create(name:"NZ Great Walks", description: "A list of all the great walks in New Zealand, I really wanna do every one!")
 list1.hikes << [hike1, hike2, hike3, hike4, hike5, hike6, hike7, hike8, hike9, hike10]
+
+require 'rest-client'
+
+
+doc_url = "https://api.doc.govt.nz/v1/tracks"
+data = JSON.parse(RestClient.get(doc_url, headers={x_api_key: ENV['DOC_API_KEY']})) #check that this env works
+
+data.each do |track|
+    id = track["assetId"]
+    hike = JSON.parse(RestClient.get((doc_url + "/#{id}/detail"), headers={x_api_key: ENV['DOC_API_KEY']})) #check that this env works
+
+    if hike["mtbDurationCategory"].empty?
+        puts hike["name"]
+        if !Hike.find_by(title: hike["name"])
+            hike = Hike.create(title: hike["name"], 
+                description: hike["introduction"], 
+                photo: hike["introductionThumbnail"], 
+                location: hike["locationArray"].first, 
+                difficulty: hike["walkTrackCategory"].first, 
+                length: hike["walkDuration"] || hike["walkDurationCategory"], 
+                routeURL: hike["staticLink"] )
+                # dog friendly if "dogsAllowed" == ??
+                # "region"
+                # "staticLink"
+                #co-ordinates - lat, long -  add to google maps and then display?
+        end
+    end
+end
