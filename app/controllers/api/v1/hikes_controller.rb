@@ -5,6 +5,10 @@ class Api::V1::HikesController < ApplicationController
         render json: @hikes
     end
 
+    def home
+        render json: {hike: true}, status: 200
+    end
+
     def show
         @hike = Hike.find(params[:id])
         if @hike

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root to: "api/v1/hikes#home"
+
   devise_for :users,
              defaults: { format: :json },
              class_name: 'User',

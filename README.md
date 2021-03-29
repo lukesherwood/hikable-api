@@ -25,7 +25,6 @@ You can then view the website in your browser at http://localhost:3000
 
 ## Future updates
  - Add review functionality to be able to rate hikes in order to ensure that people find the best hikes.
- - Hook into an external API (api.doc.govt.nz) so that all New Zealand hikes are populated.
  - Add ability for user to add their own hikes to the database.
  - Add filters to hikes page - for example by location, difficulty, distance from current location...
  - Ability for users to add their own pictures to the hikes when reviewing.
