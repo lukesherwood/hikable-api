@@ -60,7 +60,7 @@ class Api::V1::HikesController < ApplicationController
     private
 
     def page
-        params[:current_page] || "1"
+        params[:page] || "1"
     end
 
     def hike_params
