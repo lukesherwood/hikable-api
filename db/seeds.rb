@@ -16,11 +16,11 @@ require 'rest-client'
 
 
 doc_url = "https://api.doc.govt.nz/v1/tracks"
-data = JSON.parse(RestClient.get(doc_url, headers={x_api_key: ENV['DOC_API_KEY']})) #check that this env works
+data = JSON.parse(RestClient.get(doc_url, headers={x_api_key: ENV['DOC_API_KEY']}))
 
 data.each do |track|
     id = track["assetId"]
-    hike = JSON.parse(RestClient.get((doc_url + "/#{id}/detail"), headers={x_api_key: ENV['DOC_API_KEY']})) #check that this env works
+    hike = JSON.parse(RestClient.get((doc_url + "/#{id}/detail"), headers={x_api_key: ENV['DOC_API_KEY']}))
 
     if hike["mtbDurationCategory"].empty?
         puts hike["name"]
