@@ -1,3 +1,6 @@
+require 'active_support/core_ext/integer/time'
+
+Rails.application.routes.default_url_options = { host: "http://localhost:3001" }
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -28,8 +31,6 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  config.i18n.fallbacks = [I18n.default_locale]
-
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
   
@@ -43,7 +44,6 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
-
   config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true

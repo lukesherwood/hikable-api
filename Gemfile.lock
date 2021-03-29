@@ -305,6 +305,7 @@ GEM
     websocket-driver (0.7.3-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (3.3.0)
     yard (0.9.26)
     zeitwerk (2.4.0)
 
@@ -334,6 +335,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  will_paginate
 
 RUBY VERSION
    ruby 2.7.2p137

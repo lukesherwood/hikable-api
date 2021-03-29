@@ -1,8 +1,12 @@
 class Api::V1::HikesController < ApplicationController
     
     def index
-        @hikes = Hike.all
-        render json: @hikes
+        @hikes = Hike.paginate(page: page)
+        render json: {
+            hikes: @hikes,
+            page: @hikes.current_page, 
+            pages: @hikes.total_pages
+            }
     end
 
     def home
@@ -55,7 +59,11 @@ class Api::V1::HikesController < ApplicationController
 
     private
 
+    def page
+        params[:current_page] || "1"
+    end
+
     def hike_params
-        params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo, :directionURL, :routeURL, :keyword)
+        params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo, :directionURL, :routeURL, :keyword, :current_page, :total_pages)
     end
 end
