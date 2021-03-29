@@ -70,9 +70,6 @@ test:
 #
 production:
   <<: *default
-  # url: <%= ENV['DATABASE_URL'] %>
-  database: <%= ENV['RDS_DATABASE'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOST'] %>
-  port: 5432
+  database: hikable_api_production
+  username: hikable_api
+  password: <%= ENV['HIKABLE_API_DATABASE_PASSWORD'] %>
