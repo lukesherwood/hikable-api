@@ -10,7 +10,8 @@ Frontend is built with React-JS and state is managed with Redux. Styling with Bo
 (https://www.youtube.com/watch?v=1pg9a1te-74)
 
 ## Get Started
-Make sure you've cloned both the front-end (https://github.com/lukesherwood/hikable-frontend) and back-end (https://github.com/lukesherwood/hikable-api)
+Visit [Hikable](https://hikable.netlify.app)
+Make sure you've cloned both the [front-end](https://github.com/lukesherwood/hikable-frontend) and [back-end](https://github.com/lukesherwood/hikable-api)
 
 Navigate to the API directory and 'bundle install'
 
