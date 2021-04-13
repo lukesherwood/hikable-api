@@ -26,7 +26,6 @@ class Api::V1::HikesController < ApplicationController
         @keyword = params[:hike][:keyword]
         @hikes = Hike.where('title LIKE ?', '%' + @keyword + '%')
         render json: @hikes, status: 200
-        # need to figure out how to search database by keyword then render array of matching hikes
     end
 
     # def edit
@@ -48,6 +47,18 @@ class Api::V1::HikesController < ApplicationController
         end
     end
 
+    def remove_hike_list
+        @hike = Hike.find(params[:id])
+        @list = List.find(hike_params[:list_id])
+        if @list.hikes.find_by(id: @hike.id)
+            @list.hikes.delete(@hike)
+            return render json: @list, status: 200
+        else
+            render json: {message: 'Error deleting hike'}
+        end
+
+    end
+
     def destroy
         @hike = Hike.find(hike_params[:id])
         if @hike.destroy
@@ -64,6 +75,6 @@ class Api::V1::HikesController < ApplicationController
     end
 
     def hike_params
-        params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo, :directionURL, :routeURL, :keyword, :current_page, :total_pages)
+        params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo, :directionURL, :routeURL, :keyword, :current_page, :total_pages, :list_id)
     end
 end

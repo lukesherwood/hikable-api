@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :hikes
       post '/hikes/search_hikes', to: 'hikes#search_hikes'
+      put 'hikes/:id/remove_hike_list', to: 'hikes#remove_hike_list'
       resources :lists
       devise_scope :user do
         get '/users/auto_login', to: 'sessions#auto_login'  

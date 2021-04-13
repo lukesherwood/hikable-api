@@ -23,10 +23,10 @@ class Api::V1::ListsController < ApplicationController
         @list = List.find(list_params[:id])
         if hike_params[:hike_id]
             @hike = Hike.find(hike_params[:hike_id])
-            if @list.hikes.find_by(id: @hike.id) #if the hike already exists in that list then delete this will delete if a duplicate is added, how to protect from that?
-                @list.hikes.delete(@hike)
-                return render json: @list, status: 200
-            end
+            # if @list.hikes.find_by(id: @hike.id) #if the hike already exists in that list then delete this will delete if a duplicate is added, how to protect from that?
+            #     @list.hikes.delete(@hike)
+            #     return render json: @list, status: 200
+            # end
             @list.hikes << @hike
         end
         if @list.update(list_params)
