@@ -1,6 +1,7 @@
 class Api::V1::HikesController < ApplicationController
   def index
-    @hikes = Hike.paginate(page: page)
+    @hikes = Hike.filter(params.slice(:difficulty, :location, :keyword))
+    @hikes = @hikes.paginate(page: page)
     render json: {
       hikes: @hikes,
       page: @hikes.current_page,
@@ -20,15 +21,6 @@ class Api::V1::HikesController < ApplicationController
       render json: { message: 'Hike not found' }
     end
   end
-
-  def search_hikes
-    @keyword = params[:hike][:keyword]
-    @hikes = Hike.where('title LIKE ?', '%' + @keyword + '%')
-    render json: @hikes, status: 200
-  end
-
-  # def edit
-  # end
 
   def update
     @hike = Hike.find(hike_params[:id])
@@ -73,5 +65,11 @@ class Api::V1::HikesController < ApplicationController
   def hike_params
     params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo,
                                  :directionURL, :routeURL, :keyword, :current_page, :total_pages, :list_id)
+                            
   end
+
+  def filterable
+    params.permit(:keyword, :difficulty, :location)
+  end
+
 end
