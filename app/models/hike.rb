@@ -5,6 +5,6 @@ class Hike < ApplicationRecord
   self.per_page = 12
 
   scope :filter_by_difficulty, -> (difficulty) { where difficulty: difficulty }
-  scope :filter_by_location, -> (location) { where location: location }
+  scope :filter_by_duration, -> (duration) { where('duration LIKE ?', '%' + duration + '%')  }
   scope :filter_by_keyword, -> (title) { where('title LIKE ?', '%' + title + '%') }
 end
