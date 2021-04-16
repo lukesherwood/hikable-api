@@ -4,5 +4,4 @@ class AddCitextToHikes < ActiveRecord::Migration[6.0]
     change_column :hikes, :title, :citext
     add_index :hikes, :title, unique: true # If you want to index the product names
   end
-  
 end

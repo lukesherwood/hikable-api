@@ -4,7 +4,6 @@ class AddJtiToUsers < ActiveRecord::Migration[6.0]
     User.all.each { |user| user.update_column(:jti, SecureRandom.uuid) }
     change_column_null :users, :jti, false
     add_index :users, :jti, unique: true
-  # If you already have user records, you will need to initialize its `jti` column before setting it to not nullable. Your migration will look this way:
-  
+    # If you already have user records, you will need to initialize its `jti` column before setting it to not nullable. Your migration will look this way:
   end
 end
