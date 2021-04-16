@@ -27,6 +27,7 @@ require 'rest-client'
 
 doc_url = 'https://api.doc.govt.nz/v1/tracks'
 data = JSON.parse(RestClient.get(doc_url, headers = { x_api_key: ENV['DOC_API_KEY'] }))
+count = 0
 puts data.length
 data.each do |track|
   id = track['assetId']
@@ -47,8 +48,10 @@ data.each do |track|
                      photo: thumbnail,
                      routeURL: hike['staticLink'],
                      duration_category: hike['walkDurationCategory'],
-                     dog_friendly: !hike['dogsAllowed'] == "No dogs",
+                     dog_friendly: hike['dogsAllowed'],
                      region: hike['region'],
                      coordinates: "#{hike['lat']}, #{hike['lon']}",
                     )
+              count += 1
+              puts "#{count} out of #{data.length} completed"
 end
