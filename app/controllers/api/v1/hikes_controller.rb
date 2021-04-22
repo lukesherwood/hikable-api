@@ -1,6 +1,6 @@
 class Api::V1::HikesController < ApplicationController
   def index
-    @hikes = Hike.filter(params.slice(:difficulty, :duration, :keyword))
+    @hikes = Hike.filter(params.slice(:difficulty, :duration_category, :keyword))
     @hikes = @hikes.paginate(page: page)
     render json: {
       hikes: @hikes,
