@@ -42,14 +42,14 @@ data.each do |track|
   hike = Hike.create(title: hike['name'],
                      description: hike['introduction'],
                      location: hike['locationArray'].first,
-                     difficulty: hike['walkTrackCategory'].first,
+                     difficulty: hike['walkTrackCategory'].first, #this needs to be converted to an array instead
                      duration: hike['walkDuration'],
                      length: hike['distance'],
                      photo: thumbnail,
                      routeURL: hike['staticLink'],
-                     duration_category: hike['walkDurationCategory'],
-                     dog_friendly: hike['dogsAllowed'],
-                     region: hike['region'],
+                     duration_category: hike['walkDurationCategory'], #this needs to be converted to an array
+                     dog_friendly: hike['dogsAllowed'], #this doesn't really work, there are multiple types not boolean
+                     region: hike['region'], #this needs to be converted to an array
                      coordinates: "#{hike['lat']}, #{hike['lon']}",
                     )
               count += 1
