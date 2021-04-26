@@ -3,12 +3,6 @@ class Api::V1::HikesController < ApplicationController
     @hikes = Hike.filter(params.slice(:difficulty, :duration_category, :keyword))
     @hikes = @hikes.paginate(page: page)
     render json: @hikes, meta: pagination_dict(@hikes), adapter: :json
-    
-    # {
-    #   hikes: @hikes,
-    #   page: @hikes.current_page,
-    #   pages: @hikes.total_pages
-    # }
   end
 
   def home
