@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
   root to: 'api/v1/hikes#home'
 
   devise_for :users,
