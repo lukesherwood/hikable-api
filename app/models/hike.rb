@@ -2,6 +2,7 @@ class Hike < ApplicationRecord
   include Filterable
   has_many :hike_lists, dependent: :destroy
   has_many :lists, through: :hike_lists
+  has_many :reviews
   self.per_page = 12
 
   scope :filter_by_difficulty, -> (difficulty) { where difficulty: difficulty }

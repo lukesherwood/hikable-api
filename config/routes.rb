@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :reviews
   root to: 'api/v1/hikes#home'
 
   devise_for :users,
@@ -13,7 +12,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :hikes
+      resources :hikes do
+        resources :reviews
+      end
       post '/hikes/search_hikes', to: 'hikes#search_hikes'
       put 'hikes/:id/remove_hike_list', to: 'hikes#remove_hike_list'
       resources :lists
