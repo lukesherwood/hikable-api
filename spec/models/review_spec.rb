@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Review, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Review, type: :model do
+  it "has no reviews at the start" do
+    expect(Review.count).to eq(0)
+  end
 end
