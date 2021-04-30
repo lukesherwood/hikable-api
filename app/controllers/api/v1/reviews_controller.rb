@@ -11,13 +11,8 @@ class Api::V1::ReviewsController < ApplicationController
         @hike = Hike.find(params[:hike_id])
         @user = User.find_by(id: review_params[:user_id])
         review = @hike.reviews.build(review_params)
-        binding.pry
         if params[:review][:images].present?
-          params[:review][:images].each do |image|
-            image_url = { :image => (url_for image) }
-            image.attributes.merge(image_url)
-            review.images.attach(image)
-          end
+            review.images.attach(params[:review][:images])
         end
         # review.name = @user.username
         # options = { include: [:comments], fields: { comments: {user: [:name]} } }
