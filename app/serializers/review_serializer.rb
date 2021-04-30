@@ -1,6 +1,6 @@
 class ReviewSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :content, :rating, :privacy, :username
+  attributes :id, :content, :rating, :privacy, :username, :images
   has_one :user
   has_one :hike
 
@@ -8,7 +8,7 @@ class ReviewSerializer < ActiveModel::Serializer
     object.user.username
   end
 
-  attribute :image do |object|
-    object.get_image_url()
+  def image
+    object.images.service_url if object.images.attached?
   end
 end
