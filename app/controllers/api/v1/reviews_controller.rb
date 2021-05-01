@@ -1,4 +1,5 @@
 class Api::V1::ReviewsController < ApplicationController
+  require 'json'
 
     def index
         @hike = Hike.find(params[:hike_id])
@@ -11,11 +12,6 @@ class Api::V1::ReviewsController < ApplicationController
         @hike = Hike.find(params[:hike_id])
         @user = User.find_by(id: review_params[:user_id])
         review = @hike.reviews.build(review_params)
-        if params[:review][:images].present?
-            review.images.attach(params[:review][:images])
-        end
-        # review.name = @user.username
-        # options = { include: [:comments], fields: { comments: {user: [:name]} } }
         if review.save
           render json: @hike
         else
