@@ -8,7 +8,6 @@ class ReviewSerializer < ActiveModel::Serializer
     object.user.username
   end
 
-
   def images
     images = object.images.map do |image|
       image.service_url if object.images.attached?

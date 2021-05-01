@@ -4,7 +4,6 @@ class Review < ApplicationRecord
   has_many_attached :images
 
   def get_image_url
-    url_for(self.images) if self.images.attached?
+    url_for(images) if images.attached?
   end
-
 end

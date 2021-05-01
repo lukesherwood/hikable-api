@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :hikes do
-        resources :reviews
+        resources :reviews, only: %i[index create]
       end
       post '/hikes/search_hikes', to: 'hikes#search_hikes'
       put 'hikes/:id/remove_hike_list', to: 'hikes#remove_hike_list'

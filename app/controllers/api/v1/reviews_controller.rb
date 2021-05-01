@@ -1,28 +1,25 @@
 class Api::V1::ReviewsController < ApplicationController
-  require 'json'
+  def index
+    @hike = Hike.find(params[:hike_id])
+    @reviews = @hike.reviews
+    # options = { include: [:user.name], fields: { user: [:name] } }
+    render json: @reviews
+  end
 
-    def index
-        @hike = Hike.find(params[:hike_id])
-        @reviews = @hike.reviews
-        # options = { include: [:user.name], fields: { user: [:name] } }
-        render json: @reviews
-      end
+  def create
+    @hike = Hike.find(params[:hike_id])
+    @user = User.find_by(id: review_params[:user_id])
+    review = @hike.reviews.build(review_params)
+    if review.save
+      render json: @hike
+    else
+      render json: review.errors, status: :unprocessable_entity
+    end
+  end
 
-      def create
-        @hike = Hike.find(params[:hike_id])
-        @user = User.find_by(id: review_params[:user_id])
-        review = @hike.reviews.build(review_params)
-        if review.save
-          render json: @hike
-        else
-          render json: review.errors, status: :unprocessable_entity
-        end
-      end
+  private
 
-      private
-
-      def review_params
-        params.require(:review).permit(:content, :rating, :user_id, :hike_id, :name, :privacy, images: [])
-      end
-
+  def review_params
+    params.require(:review).permit(:content, :rating, :user_id, :hike_id, :name, :privacy, images: [])
+  end
 end

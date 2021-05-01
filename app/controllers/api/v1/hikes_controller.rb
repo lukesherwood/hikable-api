@@ -54,9 +54,6 @@ class Api::V1::HikesController < ApplicationController
 
   private
 
-
-  
-
   def page
     params[:page] || '1'
   end
@@ -64,6 +61,6 @@ class Api::V1::HikesController < ApplicationController
   def hike_params
     params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo,
                                  :directionURL, :routeURL, :current_page, :total_pages, :list_id, :duration_category,
-                                 :dog_friendly, :region, :coordinates, :reviews) 
+                                 :dog_friendly, :region, :coordinates, :reviews)
   end
 end
