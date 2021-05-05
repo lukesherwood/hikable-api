@@ -3,7 +3,5 @@ class Review < ApplicationRecord
   belongs_to :hike
   has_many_attached :images
 
-  def get_image_url
-    url_for(images) if images.attached?
-  end
+  scope :public_reviews, -> { where privacy: 'public' }
 end
