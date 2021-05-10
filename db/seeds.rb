@@ -31,7 +31,8 @@ count = 0
 puts data.length
 data.each do |track|
   id = track['assetId']
-  hike = JSON.parse(RestClient.get((doc_url + "/#{id}/detail?coordinates=wgs84"), headers = { x_api_key: ENV['DOC_API_KEY'] }))
+  hike = JSON.parse(RestClient.get((doc_url + "/#{id}/detail?coordinates=wgs84"),
+                                   headers = { x_api_key: ENV['DOC_API_KEY'] }))
 
   next if hike['walkDuration']&.empty? || hike['walkDurationCategory']&.empty?
   next if Hike.find_by(title: hike['name'])
@@ -42,16 +43,15 @@ data.each do |track|
   hike = Hike.create(title: hike['name'],
                      description: hike['introduction'],
                      location: hike['locationArray'].first,
-                     difficulty: hike['walkTrackCategory'].first, #this needs to be converted to an array instead
+                     difficulty: hike['walkTrackCategory'].first, # this needs to be converted to an array instead
                      duration: hike['walkDuration'],
                      length: hike['distance'],
                      photo: thumbnail,
                      routeURL: hike['staticLink'],
-                     duration_category: hike['walkDurationCategory'], #this needs to be converted to an array
-                     dog_friendly: hike['dogsAllowed'], #this doesn't really work, there are multiple types not boolean
-                     region: hike['region'], #this needs to be converted to an array
-                     coordinates: "#{hike['lat']}, #{hike['lon']}",
-                    )
-              count += 1
-              puts "#{count} out of #{data.length} completed"
+                     duration_category: hike['walkDurationCategory'], # this needs to be converted to an array
+                     dog_friendly: hike['dogsAllowed'], # this doesn't really work, there are multiple types not boolean
+                     region: hike['region'], # this needs to be converted to an array
+                     coordinates: "#{hike['lat']}, #{hike['lon']}")
+  count += 1
+  puts "#{count} out of #{data.length} completed"
 end

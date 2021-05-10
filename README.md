@@ -13,13 +13,13 @@ Frontend is built with React-JS and state is managed with Redux. Styling with Bo
 Visit [Hikable](https://hikable.netlify.app)
 Make sure you've cloned both the [front-end](https://github.com/lukesherwood/hikable-frontend) and [back-end](https://github.com/lukesherwood/hikable-api)
 
-Navigate to the API directory and 'bundle install'
+Navigate to the API directory and `bundle install`
 
-Set up the database with 'rails db:create', 'rails db:migrate' and then run the seed data 'rails db:seed'
+Set up the database with `rails db:create`, `rails db:migrate` and then run the seed data `rails db:seed`
 
-Start the 'rails server'
+Start the `rails server`
 
-Navigate to the Frontend directory in a separate terminal and run 'npm start'
+Navigate to the Frontend directory in a separate terminal and run `npm start`
 
 You can then view the website in your browser at http://localhost:3000
 
@@ -27,7 +27,6 @@ You can then view the website in your browser at http://localhost:3000
 ## Future updates
  - Add review functionality to be able to rate hikes in order to ensure that people find the best hikes.
  - Add ability for user to add their own hikes to the database.
- - Add filters to hikes page - for example by location, difficulty, distance from current location...
  - Ability for users to add their own pictures to the hikes when reviewing.
  - Link to Google Maps for driving directions from current location.
   

@@ -6,5 +6,6 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
   has_many :lists, dependent: :destroy
   has_many :hikes, through: :lists
+  has_many :reviews
   include Devise::JWT::RevocationStrategies::JTIMatcher
 end

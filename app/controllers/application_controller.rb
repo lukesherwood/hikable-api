@@ -5,6 +5,13 @@ class ApplicationController < ActionController::API
 
   protected
 
+  def pagination_dict(collection)
+    {
+      page: collection.current_page,
+      pages: collection.total_pages
+    }
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
   end

@@ -2,11 +2,7 @@ class Api::V1::HikesController < ApplicationController
   def index
     @hikes = Hike.filter(params.slice(:difficulty, :duration_category, :keyword))
     @hikes = @hikes.paginate(page: page)
-    render json: {
-      hikes: @hikes,
-      page: @hikes.current_page,
-      pages: @hikes.total_pages
-    }
+    render json: @hikes, meta: pagination_dict(@hikes), adapter: :json
   end
 
   def home
@@ -65,6 +61,6 @@ class Api::V1::HikesController < ApplicationController
   def hike_params
     params.require(:hike).permit(:title, :description, :id, :location, :difficulty, :duration, :length, :photo,
                                  :directionURL, :routeURL, :current_page, :total_pages, :list_id, :duration_category,
-                                 :dog_friendly, :region, :coordinates) 
+                                 :dog_friendly, :region, :coordinates, :reviews)
   end
 end
