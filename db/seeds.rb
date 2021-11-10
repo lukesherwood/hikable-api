@@ -42,8 +42,8 @@ data.each do |track|
   thumbnail = hike['introductionThumbnail'].gsub('large', 'hero')
   hike = Hike.create(title: hike['name'],
                      description: hike['introduction'],
-                     location: hike['locationArray'].first,
-                     difficulty: hike['walkTrackCategory'].first, # this needs to be converted to an array instead
+                     location: hike['locationArray'],
+                     difficulty: hike['walkTrackCategory'], # this needs to be converted to an array instead
                      duration: hike['walkDuration'],
                      length: hike['distance'],
                      photo: thumbnail,
@@ -51,7 +51,9 @@ data.each do |track|
                      duration_category: hike['walkDurationCategory'], # this needs to be converted to an array
                      dog_friendly: hike['dogsAllowed'], # this doesn't really work, there are multiple types not boolean
                      region: hike['region'], # this needs to be converted to an array
-                     coordinates: "#{hike['lat']}, #{hike['lon']}")
+                     latitude: hike['lat'], 
+                     longitude: hike['lon']
+                    )
   count += 1
   puts "#{count} out of #{data.length} completed"
 end

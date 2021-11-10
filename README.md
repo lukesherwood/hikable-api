@@ -25,8 +25,6 @@ You can then view the website in your browser at http://localhost:3000
 
 
 ## Future updates
- - Add review functionality to be able to rate hikes in order to ensure that people find the best hikes.
- - Add ability for user to add their own hikes to the database.
- - Ability for users to add their own pictures to the hikes when reviewing.
  - Link to Google Maps for driving directions from current location.
+ - Add ability for user to add their own hikes to the database.
   
